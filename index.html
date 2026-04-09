@@ -1,0 +1,602 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NobleMind Cast — Motivation & Lifestyle</title>
+  <meta name="description" content="NobleMind Cast — Elevate your mindset. Motivation, lifestyle, and wisdom for those who think deeper.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --bg:       #04070f;
+      --bg2:      #070c18;
+      --surface:  #0b1225;
+      --surf2:    #0e1830;
+      --blue:     #2563eb;
+      --blue2:    #3b82f6;
+      --blue3:    #60a5fa;
+      --sky:      #7dd3fc;
+      --accent:   #f0c060;
+      --white:    #f0f4ff;
+      --muted:    #5a6a8a;
+      --border:   rgba(37,99,235,.18);
+      --border2:  rgba(37,99,235,.35);
+      --r: cubic-bezier(.22,.9,.4,1.1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 10px; }
+
+    /* BG effects */
+    .bg-orb {
+      position: fixed; border-radius: 50%;
+      pointer-events: none; z-index: 0; filter: blur(100px);
+    }
+    .orb1 { width:600px; height:600px; top:-200px; left:-150px; background:radial-gradient(circle,rgba(37,99,235,.12),transparent 70%); }
+    .orb2 { width:400px; height:400px; bottom:-100px; right:-100px; background:radial-gradient(circle,rgba(96,165,250,.08),transparent 70%); }
+    .orb3 { width:300px; height:300px; top:50%; left:50%; transform:translate(-50%,-50%); background:radial-gradient(circle,rgba(240,192,96,.04),transparent 70%); }
+
+    /* noise */
+    body::after {
+      content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      opacity:.5;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top:0; left:0; width:100%; z-index:1000;
+      padding: 16px 24px;
+      display: flex; justify-content:space-between; align-items:center;
+      background: rgba(4,7,15,.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700;
+      background: linear-gradient(135deg, var(--white), var(--blue3));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      letter-spacing: -.01em;
+    }
+    .nav-logo span { color: var(--accent); font-style: italic; }
+    .nav-links { display:flex; gap:28px; align-items:center; }
+    .nav-links a {
+      font-size: .85rem; color: var(--muted); text-decoration:none;
+      font-weight:500; letter-spacing:.04em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-yt {
+      display:inline-flex; align-items:center; gap:7px;
+      background: var(--blue); color: #fff;
+      padding: 8px 18px; border-radius: 60px;
+      font-size: .82rem; font-weight:700; text-decoration:none;
+      letter-spacing:.04em;
+      transition: all .3s var(--r);
+      box-shadow: 0 4px 18px rgba(37,99,235,.35);
+    }
+    .nav-yt:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(37,99,235,.5); background: var(--blue2); }
+    .hamburger { display:none; color:var(--white); font-size:1.4rem; cursor:pointer; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 24px 80px;
+      position: relative; z-index:1;
+      text-align: center;
+    }
+    .hero-inner { max-width: 720px; margin: 0 auto; }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items:center; gap:8px;
+      padding: 6px 18px; border-radius:60px;
+      border:1px solid var(--border2);
+      background: rgba(37,99,235,.08);
+      font-size:.72rem; letter-spacing:.2em; font-weight:700;
+      color: var(--blue3); margin-bottom:28px; text-transform:uppercase;
+      animation: fadeUp .8s .1s both;
+    }
+    .hero-eyebrow i { font-size:.7rem; animation: spin 3s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 9vw, 5.5rem);
+      font-weight: 900; line-height: 1.08;
+      letter-spacing: -.02em;
+      color: var(--white);
+      margin-bottom: 24px;
+      animation: fadeUp .9s .2s both;
+    }
+    .hero h1 em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--blue3), var(--sky), var(--accent));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem; color: var(--muted);
+      line-height: 1.75; max-width:520px; margin:0 auto 40px;
+      animation: fadeUp .9s .35s both;
+    }
+
+    .hero-btns {
+      display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
+      animation: fadeUp .9s .5s both;
+    }
+    .btn-primary {
+      display:inline-flex; align-items:center; gap:9px;
+      padding:13px 28px; border-radius:60px;
+      background:linear-gradient(135deg,var(--blue),#1d4ed8);
+      color:#fff; font-weight:700; font-size:.9rem;
+      text-decoration:none; letter-spacing:.04em;
+      box-shadow:0 8px 28px rgba(37,99,235,.4);
+      transition: all .3s var(--r);
+    }
+    .btn-primary:hover { transform:translateY(-3px); box-shadow:0 14px 36px rgba(37,99,235,.55); }
+    .btn-ghost {
+      display:inline-flex; align-items:center; gap:9px;
+      padding:13px 28px; border-radius:60px;
+      border:1px solid var(--border2);
+      color:var(--blue3); font-weight:600; font-size:.9rem;
+      text-decoration:none; letter-spacing:.04em;
+      background: rgba(37,99,235,.06);
+      transition: all .3s var(--r);
+    }
+    .btn-ghost:hover { background:rgba(37,99,235,.14); border-color:var(--blue2); transform:translateY(-2px); }
+
+    /* stats */
+    .hero-stats {
+      display:flex; gap:36px; justify-content:center;
+      margin-top:52px; flex-wrap:wrap;
+      animation: fadeUp .9s .65s both;
+    }
+    .stat { text-align:center; }
+    .stat-n {
+      font-family:'Playfair Display',serif;
+      font-size:2.2rem; font-weight:900; line-height:1;
+      background:linear-gradient(135deg,var(--blue3),var(--sky));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .stat-l { font-size:.72rem; letter-spacing:.14em; color:var(--muted); margin-top:4px; text-transform:uppercase; }
+
+    /* ── ABOUT ── */
+    .about-section {
+      padding: 100px 24px;
+      position: relative; z-index:1;
+    }
+    .section-label {
+      text-align:center; font-size:.7rem; letter-spacing:.22em;
+      color:var(--blue3); font-weight:700; text-transform:uppercase; margin-bottom:12px;
+    }
+    .section-title {
+      text-align:center;
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2rem,5vw,3.2rem);
+      font-weight:700; color:var(--white);
+      margin-bottom:16px; line-height:1.15;
+    }
+    .section-title em { font-style:italic; color:var(--blue3); }
+    .section-sub {
+      text-align:center; color:var(--muted);
+      font-size:.95rem; max-width:480px; margin:0 auto 56px;
+      line-height:1.7;
+    }
+
+    .about-grid {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:48px; align-items:center; max-width:980px; margin:0 auto;
+    }
+    .about-card {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:28px; padding:44px 36px;
+      position:relative; overflow:hidden;
+    }
+    .about-card::before {
+      content:'';position:absolute;top:0;left:0;right:0;height:1px;
+      background:linear-gradient(90deg,transparent,var(--blue2),transparent);
+    }
+    .about-card .quote-mark {
+      font-family:'Playfair Display',serif;
+      font-size:6rem; line-height:.8; color:rgba(37,99,235,.12);
+      font-weight:900; margin-bottom:8px;
+    }
+    .about-card blockquote {
+      font-family:'Playfair Display',serif;
+      font-size:1.25rem; font-style:italic; line-height:1.6;
+      color:var(--white); margin-bottom:20px;
+    }
+    .about-card cite {
+      font-size:.8rem; color:var(--blue3); font-weight:600;
+      letter-spacing:.08em; text-transform:uppercase; font-style:normal;
+    }
+    .about-text .badge {
+      display:inline-block; padding:4px 14px; border-radius:60px;
+      background:rgba(37,99,235,.1); border:1px solid var(--border2);
+      font-size:.7rem; letter-spacing:.16em; color:var(--blue3);
+      font-weight:700; margin-bottom:18px; text-transform:uppercase;
+    }
+    .about-text h3 {
+      font-family:'Playfair Display',serif;
+      font-size:1.8rem; font-weight:700; line-height:1.2;
+      color:var(--white); margin-bottom:16px;
+    }
+    .about-text p { font-size:.93rem; line-height:1.8; color:var(--muted); margin-bottom:12px; }
+
+    /* ── TOPICS / PILLARS ── */
+    .topics-section { padding:80px 24px; position:relative; z-index:1; }
+    .topics-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:20px; max-width:980px; margin:0 auto;
+    }
+    .topic-card {
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:22px; padding:32px 24px;
+      transition: all .35s var(--r); position:relative; overflow:hidden;
+    }
+    .topic-card::after {
+      content:''; position:absolute; inset:0; border-radius:22px;
+      background:linear-gradient(135deg,rgba(37,99,235,.07),transparent);
+      opacity:0; transition:.3s;
+    }
+    .topic-card:hover { transform:translateY(-8px); border-color:var(--border2); }
+    .topic-card:hover::after { opacity:1; }
+    .topic-icon {
+      width:50px; height:50px; border-radius:16px;
+      background:rgba(37,99,235,.12); border:1px solid var(--border2);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.3rem; color:var(--blue3); margin-bottom:20px;
+      transition:.3s;
+    }
+    .topic-card:hover .topic-icon { background:rgba(37,99,235,.22); box-shadow:0 0 18px rgba(37,99,235,.25); }
+    .topic-card h4 { font-size:1.05rem; font-weight:700; color:var(--white); margin-bottom:8px; }
+    .topic-card p { font-size:.85rem; line-height:1.65; color:var(--muted); }
+
+    /* ── LATEST VIDEOS ── */
+    .videos-section { padding:80px 24px; position:relative; z-index:1; }
+    .videos-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:22px; max-width:980px; margin:0 auto;
+    }
+    .video-card {
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:20px; overflow:hidden;
+      transition: all .35s var(--r);
+    }
+    .video-card:hover { transform:translateY(-6px); border-color:var(--border2); }
+    .video-thumb {
+      aspect-ratio:16/9; background:var(--surf2);
+      display:flex; align-items:center; justify-content:center;
+      position:relative; overflow:hidden;
+    }
+    .video-thumb iframe { width:100%; height:100%; border:none; }
+    .video-thumb-placeholder {
+      width:100%; height:100%;
+      display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(135deg,#0a1530,#0e1f45);
+    }
+    .play-btn {
+      width:54px; height:54px; border-radius:50%;
+      background:rgba(37,99,235,.8); display:flex;
+      align-items:center; justify-content:center;
+      font-size:1.3rem; color:#fff;
+      box-shadow:0 0 30px rgba(37,99,235,.5);
+      transition:.3s;
+    }
+    .video-card:hover .play-btn { transform:scale(1.12); background:var(--blue2); }
+    .video-info { padding:18px 20px; }
+    .video-tag {
+      font-size:.68rem; letter-spacing:.14em; color:var(--blue3);
+      font-weight:700; text-transform:uppercase; margin-bottom:7px;
+    }
+    .video-info h4 {
+      font-size:1rem; font-weight:700; color:var(--white);
+      line-height:1.4; margin-bottom:8px;
+    }
+    .video-meta { font-size:.78rem; color:var(--muted); display:flex; gap:14px; }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding:80px 24px; position:relative; z-index:1;
+    }
+    .cta-box {
+      max-width:700px; margin:0 auto;
+      background:linear-gradient(135deg,rgba(37,99,235,.12),rgba(96,165,250,.06));
+      border:1px solid var(--border2);
+      border-radius:32px; padding:56px 36px;
+      text-align:center; position:relative; overflow:hidden;
+    }
+    .cta-box::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:1px;
+      background:linear-gradient(90deg,transparent,var(--blue2),transparent);
+    }
+    .cta-box h2 {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.8rem,5vw,2.8rem); font-weight:900;
+      line-height:1.15; margin-bottom:16px; color:var(--white);
+    }
+    .cta-box h2 em { font-style:italic; color:var(--blue3); }
+    .cta-box p { font-size:.95rem; color:var(--muted); line-height:1.7; margin-bottom:32px; }
+    .cta-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding:48px 24px 32px;
+      border-top:1px solid var(--border);
+      text-align:center; position:relative; z-index:1;
+    }
+    .footer-logo {
+      font-family:'Playfair Display',serif;
+      font-size:1.6rem; font-weight:900;
+      background:linear-gradient(135deg,var(--white),var(--blue3));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      margin-bottom:8px;
+    }
+    .footer-logo span { font-style:italic; color:var(--accent); }
+    .footer-tagline { font-size:.8rem; color:var(--muted); letter-spacing:.1em; margin-bottom:24px; }
+    .footer-links { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin-bottom:28px; }
+    .footer-links a { font-size:.82rem; color:var(--muted); text-decoration:none; transition:.2s; }
+    .footer-links a:hover { color:var(--blue3); }
+    .social-row { display:flex; gap:14px; justify-content:center; margin-bottom:28px; }
+    .soc-btn {
+      width:40px; height:40px; border-radius:12px;
+      background:rgba(37,99,235,.1); border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1rem; color:var(--muted); text-decoration:none;
+      transition: all .25s var(--r);
+    }
+    .soc-btn:hover { background:rgba(37,99,235,.22); color:var(--blue3); border-color:var(--border2); transform:translateY(-3px); }
+    .footer-copy { font-size:.75rem; color:var(--muted); letter-spacing:.06em; }
+
+    /* ── ANIM ── */
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(24px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s var(--r),transform .7s var(--r); }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal-d2 { transition-delay:.1s; }
+    .reveal-d3 { transition-delay:.2s; }
+    .reveal-d4 { transition-delay:.3s; }
+
+    /* ── MOBILE ── */
+    @media(max-width:768px) {
+      .nav-links { display:none; }
+      .hamburger { display:block; }
+      .about-grid { grid-template-columns:1fr; gap:28px; }
+      .hero-stats { gap:24px; }
+      .cta-box { padding:40px 22px; }
+    }
+    @media(max-width:480px) {
+      nav { padding:14px 16px; }
+      .hero { padding:100px 16px 60px; }
+      .hero-btns { flex-direction:column; align-items:center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Noble<span>Mind</span> Cast</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#topics">Topics</a>
+    <a href="#videos">Videos</a>
+    <a href="#contact">Contact</a>
+    <a href="https://youtube.com/@NobleMindCast" target="_blank" class="nav-yt">
+      <i class="fab fa-youtube"></i> Subscribe
+    </a>
+  </div>
+  <div class="hamburger"><i class="fas fa-bars"></i></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <i class="fas fa-circle"></i> Motivation & Lifestyle Channel
+    </div>
+    <h1>Elevate Your<br><em>Mindset.</em><br>Transform Your Life.</h1>
+    <p class="hero-desc">NobleMind Cast — where deep thinking meets real living. Stories, insights, and wisdom that push you forward every single day.</p>
+    <div class="hero-btns">
+      <a href="https://youtube.com/@NobleMindCast" target="_blank" class="btn-primary">
+        <i class="fab fa-youtube"></i> Watch on YouTube
+      </a>
+      <a href="#videos" class="btn-ghost">
+        <i class="fas fa-play"></i> Latest Videos
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-n">∞</div><div class="stat-l">Episodes</div></div>
+      <div class="stat"><div class="stat-n">24/7</div><div class="stat-l">Inspiration</div></div>
+      <div class="stat"><div class="stat-n">1</div><div class="stat-l">Noble Community</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <p class="section-label reveal">Our Story</p>
+  <h2 class="section-title reveal">Why <em>NobleMind?</em></h2>
+  <p class="section-sub reveal">A channel built for thinkers, dreamers, and doers — people who refuse to settle for ordinary.</p>
+
+  <div class="about-grid">
+    <div class="about-card reveal">
+      <div class="quote-mark">"</div>
+      <blockquote>Your mind is your most powerful asset. What you feed it determines where you go.</blockquote>
+      <cite>— NobleMind Cast</cite>
+    </div>
+    <div class="about-text reveal reveal-d2">
+      <span class="badge">About the Channel</span>
+      <h3>Thinking deeper,<br>living better.</h3>
+      <p>NobleMind Cast is a Bangladeshi YouTube channel dedicated to motivation, mindset, and intentional lifestyle. Every episode is crafted to spark something inside you.</p>
+      <p>Whether you're chasing goals, navigating life's challenges, or simply looking for a clearer path — this is your space.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TOPICS -->
+<section class="topics-section" id="topics">
+  <p class="section-label reveal">What We Cover</p>
+  <h2 class="section-title reveal">Content <em>Pillars</em></h2>
+  <p class="section-sub reveal">Every video serves a purpose — to move you forward.</p>
+
+  <div class="topics-grid">
+    <div class="topic-card reveal">
+      <div class="topic-icon"><i class="fas fa-brain"></i></div>
+      <h4>Mindset & Growth</h4>
+      <p>Rewire your thinking. Break limiting beliefs. Build a mind that drives success.</p>
+    </div>
+    <div class="topic-card reveal reveal-d2">
+      <div class="topic-icon"><i class="fas fa-fire"></i></div>
+      <h4>Motivation</h4>
+      <p>Real stories, raw energy. The push you need when you feel like giving up.</p>
+    </div>
+    <div class="topic-card reveal reveal-d3">
+      <div class="topic-icon"><i class="fas fa-leaf"></i></div>
+      <h4>Lifestyle Design</h4>
+      <p>Build habits, routines, and systems that create the life you actually want.</p>
+    </div>
+    <div class="topic-card reveal reveal-d4">
+      <div class="topic-icon"><i class="fas fa-compass"></i></div>
+      <h4>Purpose & Direction</h4>
+      <p>Find your why. Clarify your goals. Walk with intention every single day.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section class="videos-section" id="videos">
+  <p class="section-label reveal">Watch Now</p>
+  <h2 class="section-title reveal">Latest <em>Episodes</em></h2>
+  <p class="section-sub reveal">New videos drop regularly — don't miss an episode.</p>
+
+  <div class="videos-grid">
+    <div class="video-card reveal">
+      <div class="video-thumb">
+        <iframe src="https://www.youtube.com/embed/?listType=user_uploads&list=NobleMindCast"
+          title="NobleMind Cast" frameborder="0" allowfullscreen
+          onerror="this.style.display='none'"></iframe>
+        <div class="video-thumb-placeholder">
+          <div class="play-btn"><i class="fas fa-play"></i></div>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-tag">Mindset</div>
+        <h4>The Power of a Noble Mind</h4>
+        <div class="video-meta"><span><i class="fas fa-clock"></i> New</span><span><i class="fas fa-eye"></i> Watch Now</span></div>
+      </div>
+    </div>
+    <div class="video-card reveal reveal-d2">
+      <div class="video-thumb">
+        <div class="video-thumb-placeholder">
+          <div class="play-btn"><i class="fas fa-play"></i></div>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-tag">Motivation</div>
+        <h4>Start Before You're Ready — A Mindset Shift</h4>
+        <div class="video-meta"><span><i class="fas fa-clock"></i> Coming Soon</span></div>
+      </div>
+    </div>
+    <div class="video-card reveal reveal-d3">
+      <div class="video-thumb">
+        <div class="video-thumb-placeholder">
+          <div class="play-btn"><i class="fas fa-play"></i></div>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-tag">Lifestyle</div>
+        <h4>Design Your Day, Design Your Life</h4>
+        <div class="video-meta"><span><i class="fas fa-clock"></i> Coming Soon</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-box reveal">
+    <h2>Join the<br><em>NobleMind</em> Community</h2>
+    <p>Subscribe for weekly motivation, mindset content, and lifestyle wisdom. Be part of a community that thinks differently.</p>
+    <div class="cta-btns">
+      <a href="https://youtube.com/@NobleMindCast" target="_blank" class="btn-primary">
+        <i class="fab fa-youtube"></i> Subscribe Free
+      </a>
+      <a href="https://wa.me/" target="_blank" class="btn-ghost">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Noble<span>Mind</span> Cast</div>
+  <div class="footer-tagline">✦ ELEVATE YOUR MIND. TRANSFORM YOUR LIFE. ✦</div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#topics">Topics</a>
+    <a href="#videos">Videos</a>
+    <a href="https://youtube.com/@NobleMindCast" target="_blank">YouTube</a>
+  </div>
+  <div class="social-row">
+    <a href="https://youtube.com/@NobleMindCast" target="_blank" class="soc-btn"><i class="fab fa-youtube"></i></a>
+    <a href="#" class="soc-btn"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" class="soc-btn"><i class="fab fa-instagram"></i></a>
+    <a href="#" class="soc-btn"><i class="fab fa-telegram-plane"></i></a>
+  </div>
+  <div class="footer-copy">© 2026 NobleMind Cast — All rights reserved</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.background =
+      scrollY > 40 ? 'rgba(4,7,15,0.95)' : 'rgba(4,7,15,0.7)';
+  });
+
+  // Hamburger (mobile)
+  document.querySelector('.hamburger').addEventListener('click', () => {
+    const nl = document.querySelector('.nav-links');
+    nl.style.display = nl.style.display === 'flex' ? 'none' : 'flex';
+    nl.style.flexDirection = 'column';
+    nl.style.position = 'absolute';
+    nl.style.top = '65px'; nl.style.left = '0'; nl.style.right = '0';
+    nl.style.background = 'rgba(4,7,15,0.98)';
+    nl.style.padding = '20px 24px';
+    nl.style.borderBottom = '1px solid rgba(37,99,235,.18)';
+  });
+</script>
+</body>
+</html>
